@@ -58,9 +58,9 @@ static void MX_ADC1_Init(void);
 /* USER CODE BEGIN 0 */
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
-	uint32_t adcValue;
-	uint32_t adcSum = 0;
-	uint8_t i = 0;
+  uint32_t adcValue;
+  uint32_t adcSum = 0;
+  uint8_t i = 0;
     if(hadc->Instance == ADC1)
     {
         while (i < 60)
@@ -71,18 +71,18 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 
             if (adcValue < 2048)
             {
-                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
-                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
             }
             else
             {
-                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
-                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
             }
         }
 
         uint32_t average = adcSum / 60;
-        float voltage = average * 0.0008f;
+        double voltage = average * 0.0008;
 
         HAL_ADC_Start_IT(&hadc1);
     }
@@ -130,6 +130,8 @@ int main(void)
   {
     /* USER CODE END WHILE */
 	  HAL_Delay(500);
+	  HAL_Delay(500);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
